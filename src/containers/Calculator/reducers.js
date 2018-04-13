@@ -1,32 +1,20 @@
 import {
-    ADD,
     CLEAR_INPUT,
-    CHANGE_INPUT,
-    DIVIDE,
-    MULTIPLY,
-    SUBTRACT
+    CHANGE_INPUT
 } from './constants';
 
 const initialState = {
+    needSecondNumber: true,
     result: ''
 };
 
 const CalculatorReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD:
-            return { ...state, result: action.payload };
+        case CHANGE_INPUT:
+            return { ...state, result: action.payload, needSecondNumber: action.needSecondNumber };
 
         case CLEAR_INPUT:
-            return { ...state, result: action.payload };
-
-        case DIVIDE:
-            return { ...state, result: action.payload };
-
-        case MULTIPLY:
-            return { ...state, result: action.payload };
-
-        case SUBTRACT:
-            return { ...state, result: action.payload };
+            return { ...state, result: action.payload, needSecondNumber: true };
 
         default: 
             return state;

@@ -1,25 +1,21 @@
 import React, { Component } from 'react';
-import { TextInput, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+import { TextInput } from 'react-native';
+import { createStructuredSelector } from 'reselect';
+import { selectResult } from '../../containers/Calculator/selectors';
+import styles from './style';
 
-export default class ResultField extends Component {
+class ResultField extends Component {
     render() {
+        const { result } = this.props;
         return (
-            <TextInput style={styles.input} editable={false} underlineColorAndroid='transparent' />
+            <TextInput style={styles.input} editable={false} underlineColorAndroid='transparent' value={result} />
         );
     }
 }
 
-const styles = StyleSheet.create({
-    input: {
-        flex: 1,
-        justifyContent: 'center',
-        textAlign: 'right',
-        marginTop: 50,
-        marginBottom: 25,
-        borderWidth: 3,
-        borderRadius: 5,
-        borderColor: 'green',
-        color: 'black',
-        fontSize: 20
-    }
+const mapStateToProps = createStructuredSelector({
+   result: selectResult() 
 });
+
+export default connect(mapStateToProps)(ResultField);

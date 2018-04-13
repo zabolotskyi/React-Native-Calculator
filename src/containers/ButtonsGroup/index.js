@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { createStructuredSelector } from 'reselect';
-import { addNumber } from '../Calculator/actions';
+import { addNumber, changeInput } from '../Calculator/actions';
 import Button from '../../components/Button';
+import styles from './style';
 
 class ButtonsGroup extends Component {
-
-    constructor() {
-        super();
-        this.state = {
-            needSecondNumber: true
-        }
-    }
 
     handleInputChange = (number) => {
         this.props.onChangeInput(number);
@@ -22,7 +16,7 @@ class ButtonsGroup extends Component {
         return (
             <View>
                 <View style={styles.buttonRow}>
-                    <Button label={'7'} onPress={this.handleInputChange('7')} />
+                    <Button label={'7'} onClick={this.handleInputChange('7')} />
                     <Button label={'8'} />
                     <Button label={'9'} />
                     <Button label={'/'} />
@@ -56,17 +50,8 @@ class ButtonsGroup extends Component {
 const mapStateToProps = null;
 
 const mapDispatchToProps = {
-    onAdd: addNumber
+    onAdd: addNumber,
+    onChangeInput: changeInput
 };
-
-const styles = StyleSheet.create({
-    buttonRow: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 15
-    }
-});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ButtonsGroup);
