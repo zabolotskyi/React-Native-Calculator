@@ -25,9 +25,6 @@ const CalculatorReducer = (state = initialState, action) => {
 
         case CLEAR_INPUT:
             return { ...state, result: action.payload, firstNumber: '', hasDotNotation: false, operation: '' };
-
-        case ERROR:
-            return { ...state };
             
         case EVALUATE_EXPRESSION:
             return { ...state, result: action.payload, firstNumber: '', hasDotNotation: false, operation: '' }
