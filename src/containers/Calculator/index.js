@@ -1,24 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ScrollView } from 'react-native';
-import { createStructuredSelector } from 'reselect';
+import { ScrollView, View } from 'react-native';
 import Button from '../../components/Button';
 import ButtonsGroup from '../../containers/ButtonsGroup';
 import ResultField from '../../components/ResultField';
+import styles from './style';
 
-class Calculator extends Component {
+export default class Calculator extends Component {
     render() {
         return (
-            <ScrollView>
-               <ResultField />
-               <ButtonsGroup />
-            </ScrollView>
+            <View style={styles.container}>
+                <ScrollView contentContainerStyle={styles.contentContainer}>
+                    <ResultField />
+                    <ButtonsGroup />
+                </ScrollView>
+            </View>
         );
     }
 }
-
-const mapStateToProps = createStructuredSelector({
-    
-});
-
-export default connect(mapStateToProps)(Calculator);

@@ -2,15 +2,17 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     input: {
-        flex: 1,
         justifyContent: 'center',
         textAlign: 'right',
-        marginTop: 50,
+        height: 50,
+        paddingRight: 20,
+        marginTop: 30,
+        margin: 5,
         marginBottom: 25,
         borderWidth: 3,
         borderRadius: 5,
-        borderColor: 'green',
-        color: 'black',
+        borderColor: 'cyan',
+        color: 'sienna',
         fontSize: 20
     }
 });

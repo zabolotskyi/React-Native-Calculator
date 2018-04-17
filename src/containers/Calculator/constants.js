@@ -1,2 +1,5 @@
 export const CLEAR_INPUT = 'CLEAR_INPUT';
 export const CHANGE_INPUT = 'CHANGE_INPUT';
+export const CHANGE_OPERATION = 'CHANGE_OPERATION';
+export const ERROR = 'ERROR';
+export const EVALUATE_EXPRESSION = 'EVALUATE_EXPRESSION';
