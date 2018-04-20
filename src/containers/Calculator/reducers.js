@@ -9,8 +9,6 @@ import {
 const initialState = {
     cleanInput: false,
     firstNumber: '',
-    hasDotNotation: false,
-    needSecondNumber: true,
     operation: '',
     result: ''
 };
@@ -18,16 +16,16 @@ const initialState = {
 const CalculatorReducer = (state = initialState, action) => {
     switch (action.type) {
         case CHANGE_INPUT:
-            return { ...state, result: action.payload, cleanInput: action.cleanInput, hasDotNotation: action.hasDotNotation };
+            return { ...state, ...action.payload };
 
         case CHANGE_OPERATION:
-            return { ...state, operation: action.payload, cleanInput: action.cleanInput, firstNumber: action.firstNumber, hasDotNotation: action.hasDotNotation };
+            return { ...state, ...action.payload };
 
         case CLEAR_INPUT:
-            return { ...state, result: action.payload, firstNumber: '', hasDotNotation: false, operation: '' };
+            return { ...state, ...action.payload };
             
         case EVALUATE_EXPRESSION:
-            return { ...state, result: action.payload, firstNumber: '', hasDotNotation: false, operation: '' }
+            return { ...state, ...action.payload };
 
         default: 
             return state;

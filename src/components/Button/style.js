@@ -5,9 +5,9 @@ export default StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        width: 50,
-        height: 50,
         margin: 5,
+        paddingTop: 8,
+        paddingBottom: 8,
         backgroundColor: 'tomato',
         borderRadius: 5
     },

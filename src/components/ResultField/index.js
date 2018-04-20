@@ -9,7 +9,7 @@ class ResultField extends Component {
     render() {
         const { result } = this.props;
         return (
-            <TextInput style={styles.input} editable={false} underlineColorAndroid='transparent' value={result.toString()} />
+            <TextInput style={styles.input} editable={false} underlineColorAndroid='transparent' value={`${result}`} />
         );
     }
 }

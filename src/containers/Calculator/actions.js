@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import {
     CLEAR_INPUT,
     CHANGE_INPUT,
@@ -11,14 +12,14 @@ export const changeInput = (number) => {
         const state = getState();
         const needToCleanInput = state.CalculatorReducer.cleanInput;
         if (needToCleanInput) {
-            const updatedHasDotNotation = (number === '.');
             const newResult = number;
             try {
                 dispatch({
                     type: CHANGE_INPUT,
-                    payload: newResult,
-                    cleanInput: false,
-                    hasDotNotation: updatedHasDotNotation
+                    payload: {
+                        result: newResult,
+                        cleanInput: false
+                    }
                 });
             } catch(err) {
                 dispatch({
@@ -27,22 +28,22 @@ export const changeInput = (number) => {
                 });
             }
         } else {
-            const result = state.CalculatorReducer.result;
-            const hasDotNotation = state.CalculatorReducer.hasDotNotation;
-            const updatedHasDotNotation = hasDotNotation || (number === '.');
+            const result = state.CalculatorReducer.result.toString();
+            const hasDotNotation = (result.indexOf('.') > -1);
             const newResult = (hasDotNotation && (number === '.')) ? result : result + number;
             try {
                 dispatch({
                     type: CHANGE_INPUT,
-                    payload: newResult,
-                    hasDotNotation: updatedHasDotNotation
+                    payload: {
+                        result: newResult
+                    }
                 });
             } catch(err) {
                 dispatch({
                     type: ERROR,
                     payload: err
                 });
-                alert('An error occurred. Check out the information in the console.');
+                Alert.alert('An error occurred.', 'Check out the information in the console.');
             }
         }
     }
@@ -51,26 +52,26 @@ export const changeInput = (number) => {
 export const changeOperation = (operation) => {
     return (dispatch, getState) => {
         const state = getState();
-        const result = state.CalculatorReducer.result;
-        const hasDotNotation = state.CalculatorReducer.hasDotNotation;
-        const firstNumberValid = (!!hasDotNotation && (result.length > 1)) || (!hasDotNotation && result);
+        const result = state.CalculatorReducer.result.toString();
+        const hasDotNotation = (result.indexOf('.') > -1);
+        const firstNumberValid = (hasDotNotation && (result.length > 1)) || (!hasDotNotation && result);
         const newOperation = firstNumberValid ? operation : '';
         const needToCleanInput = !!newOperation;
-        const updatedHasDotNotation = !!newOperation ? false : hasDotNotation;
         try {
             dispatch({
                 type: CHANGE_OPERATION,
-                payload: newOperation,
-                cleanInput: needToCleanInput,
-                firstNumber: result,
-                hasDotNotation: updatedHasDotNotation
+                payload: {
+                    operation: newOperation,
+                    cleanInput: needToCleanInput,
+                    firstNumber: result
+                }
             });
         } catch(err) {
             dispatch({
                 type: ERROR,
                 payload: err
             });
-            alert('An error occurred. Check out the information in the console.');
+            Alert.alert('An error occurred.', 'Check out the information in the console.');
         }
     }
 }
@@ -81,14 +82,18 @@ export const clearInput = () => {
         try {
             dispatch({
                 type: CLEAR_INPUT,
-                payload: newResult
+                payload: {
+                    result: newResult,
+                    firstNumber: '',
+                    operation: ''
+                }
             });
         } catch(err) {
             dispatch({
                 type: ERROR,
                 payload: err
             });
-            alert('An error occurred. Check out the information in the console.');
+            Alert.alert('An error occurred.', 'Check out the information in the console.');
         }
     }
 }
@@ -120,14 +125,18 @@ export const evaluateExpression = () => {
             try {
                 dispatch({
                     type: EVALUATE_EXPRESSION,
-                    payload: Number(parseFloat(newResult).toPrecision(5))
+                    payload: {
+                        result: Number(parseFloat(newResult).toPrecision(5)),
+                        firstNumber: '',
+                        operation: ''
+                    }
                 });
             } catch(err) {
                 dispatch({
                     type: ERROR,
                     payload: err
                 });
-                alert('An error occurred. Check out the information in the console.');
+                Alert.alert('An error occurred.', 'Check out the information in the console.');
             }
         }
     }

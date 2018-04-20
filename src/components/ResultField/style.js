@@ -4,10 +4,9 @@ export default StyleSheet.create({
     input: {
         justifyContent: 'center',
         textAlign: 'right',
-        height: 50,
         paddingRight: 20,
-        marginTop: 30,
         margin: 5,
+        marginTop: 35,
         marginBottom: 25,
         borderWidth: 3,
         borderRadius: 5,
