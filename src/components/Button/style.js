@@ -13,7 +13,7 @@ export default StyleSheet.create({
     },
     text: {
         fontWeight: 'bold',
-        fontSize: 16,
+        fontSize: 26,
         color: 'white'
     }
 });

@@ -10,6 +10,7 @@ const initialState = {
     cleanInput: false,
     firstNumber: '',
     operation: '',
+    operationJustChosen: false,
     result: ''
 };
 

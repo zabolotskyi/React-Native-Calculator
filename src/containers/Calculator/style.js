@@ -1,11 +1,15 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-    container: {
+    contentContainer: {
         flex: 1,
         backgroundColor: 'thistle'
     },
-    contentContainer: {
-        flex: 1
+    section1: {
+        flex: 1,
+        alignItems: 'stretch'
     },
+    section4: {
+        flex: 4
+    }
 });

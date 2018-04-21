@@ -9,12 +9,14 @@ import styles from './style';
 export default class Calculator extends Component {
     render() {
         return (
-            <View style={styles.container}>
-                <ScrollView contentContainerStyle={styles.contentContainer}>
+            <ScrollView contentContainerStyle={styles.contentContainer}>
+                <View style={styles.section1} >
                     <ResultField />
+                </View>
+                <View style={styles.section4}>              
                     <ButtonsGroup />
-                </ScrollView>
-            </View>
+                </View>
+            </ScrollView>
         );
     }
 }

@@ -18,7 +18,7 @@ class ButtonsGroup extends Component {
 
     render() {
         return (
-            <View>
+            <View style={styles.container}>
                 <View style={styles.buttonsRow}>
                     <Button label={'7'} onPress={() => this.handleInputChange('7')} />
                     <Button label={'8'} onPress={() => this.handleInputChange('8')} />

@@ -109,6 +109,31 @@ describe('Calculation test', () => {
     expect(nextState.CalculatorReducer.result).toBe(0.5);
 
   });
+
+  it('Calculates intermediate results correctly: 3 + 6 + -> expected 9', async () => {
+
+    let nextState = initialState;
+    nextState = await calculatorTester(nextState, changeInput('3'));
+    nextState = await calculatorTester(nextState, changeOperation('+'));
+    nextState = await calculatorTester(nextState, changeInput('6'));
+    nextState = await calculatorTester(nextState, changeOperation('+'));
+
+    expect(nextState.CalculatorReducer.result).toBe(9);
+
+  });
+
+  it('Changes operations correctly: 5 - * 6 -> expected 30', async () => {
+
+    let nextState = initialState;
+    nextState = await calculatorTester(nextState, changeInput('5'));
+    nextState = await calculatorTester(nextState, changeOperation('-'));
+    nextState = await calculatorTester(nextState, changeOperation('*'));
+    nextState = await calculatorTester(nextState, changeInput('6'));
+    nextState = await calculatorTester(nextState, evaluateExpression());
+
+    expect(nextState.CalculatorReducer.result).toBe(30);
+
+  });
 });
 
 describe('Reducer test', () => {
