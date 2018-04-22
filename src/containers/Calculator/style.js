@@ -5,11 +5,11 @@ export default StyleSheet.create({
         flex: 1,
         backgroundColor: 'thistle'
     },
-    section1: {
+    resultField: {
         flex: 1,
         alignItems: 'stretch'
     },
-    section4: {
+    buttonsGroup: {
         flex: 4
     }
 });

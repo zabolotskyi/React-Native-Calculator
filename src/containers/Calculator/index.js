@@ -10,10 +10,10 @@ export default class Calculator extends Component {
     render() {
         return (
             <ScrollView contentContainerStyle={styles.contentContainer}>
-                <View style={styles.section1} >
+                <View style={styles.resultField} >
                     <ResultField />
                 </View>
-                <View style={styles.section4}>              
+                <View style={styles.buttonsGroup}>              
                     <ButtonsGroup />
                 </View>
             </ScrollView>
