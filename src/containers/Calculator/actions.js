@@ -41,8 +41,9 @@ export const changeInput = (number) => {
             let newResult = (hasDotNotation && (number === '.')) ? result : result + number;
             if (newResult[0] === '.') {
                 newResult = '0' + newResult
-            } 
-            // .replace(/^0+(?=\d)/, '')
+            } else if (newResult.indexOf('.') === -1) {
+                newResult = String(+newResult);
+            }
             try {
                 dispatch({
                     type: CHANGE_INPUT,
