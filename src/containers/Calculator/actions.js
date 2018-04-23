@@ -1,131 +1,131 @@
 import { Alert } from 'react-native';
 import {
-    CLEAR_INPUT,
-    CHANGE_INPUT,
-    CHANGE_OPERATION,
-    ERROR,
-    EVALUATE_EXPRESSION
+  CLEAR_INPUT,
+  CHANGE_INPUT,
+  CHANGE_OPERATION,
+  ERROR,
+  EVALUATE_EXPRESSION,
 } from './constants';
 
 export const handleError = (err) => {
-    return (dispatch) => {
-        dispatch({
-            type: ERROR,
-            payload: err
-        });
-        Alert.alert('An error occurred.', 'Check out the information in the console.');
-    }
+  return (dispatch) => {
+    dispatch({
+      type: ERROR,
+      payload: err,
+    });
+    Alert.alert('An error occurred.', 'Check out the information in the console.');
+  },
 }
 
 export const changeInput = (number) => {
-    return (dispatch, getState) => {
-        const state = getState();
-        const needToCleanInput = state.CalculatorReducer.cleanInput;
-        if (needToCleanInput) {
-            const newResult = number;
-            try {
-                dispatch({
-                    type: CHANGE_INPUT,
-                    payload: {
-                        result: newResult,
-                        cleanInput: false,
-                        operationJustChosen: false
-                    }
-                });
-            } catch(err) {
-                dispatch(handleError(err));
-            }
-        } else {
-            const result = state.CalculatorReducer.result.toString();
-            const hasDotNotation = (result.indexOf('.') > -1);
-            let newResult = (hasDotNotation && (number === '.')) ? result : result + number;
-            if (newResult[0] === '.') {
-                newResult = '0' + newResult
-            } else if (newResult.indexOf('.') === -1) {
-                newResult = String(+newResult);
-            }
-            try {
-                dispatch({
-                    type: CHANGE_INPUT,
-                    payload: {
-                        result: newResult,
-                        operationJustChosen: false
-                    }
-                });
-            } catch(err) {
-                dispatch(handleError(err));
-            }
-        }
+  return (dispatch, getState) => {
+    const state = getState();
+    const needToCleanInput = state.CalculatorReducer.cleanInput;
+    if (needToCleanInput) {
+      const newResult = number;
+      try {
+        dispatch({
+          type: CHANGE_INPUT,
+          payload: {
+            result: newResult,
+            cleanInput: false,
+            operationJustChosen: false,
+          },
+        });
+      } catch (err) {
+        dispatch(handleError(err));
+      }
+    } else {
+      const result = state.CalculatorReducer.result.toString();
+      const hasDotNotation = (result.indexOf('.') > -1);
+      let newResult = (hasDotNotation && (number === '.')) ? result : result + number;
+      if (newResult[0] === '.') {
+        newResult = '0' + newResult
+      } else if (newResult.indexOf('.') === -1) {
+        newResult = String(+newResult);
+      }
+      try {
+        dispatch({
+          type: CHANGE_INPUT,
+          payload: {
+            result: newResult,
+            operationJustChosen: false,
+          },
+        });
+      } catch (err) {
+        dispatch(handleError(err));
+      }
     }
+  },
 }
 
 export const changeOperation = (operation) => {
-    return (dispatch, getState) => {
-        const state = getState();
-        const hasOperation = !!state.CalculatorReducer.operation;
-        const needToAcceptOperation = !state.CalculatorReducer.operationJustChosen;
-        if (!needToAcceptOperation) {
-            const newOperation = operation;
-            try {
-                dispatch({
-                    type: CHANGE_OPERATION,
-                    payload: {
-                        operation: newOperation
-                    }
-                });
-            } catch(err) {
-                dispatch(handleError(err));
-            }
-        } else if (hasOperation) {
-            try {
-                dispatch(evaluateExpression(true, operation));
-            } catch(err) {
-                dispatch(handleError(err));                
-            }
-        } else {
-            const result = state.CalculatorReducer.result.toString();
-            const hasDotNotation = (result.indexOf('.') > -1);
-            const firstNumberValid = (hasDotNotation && (result.length > 1)) || (!hasDotNotation && result);
-            const newOperation = firstNumberValid ? operation : '';
-            const updatedOperationJustChosen = !!newOperation;
-            const needToCleanInput = !!newOperation;
-            try {
-                dispatch({
-                    type: CHANGE_OPERATION,
-                    payload: {
-                        operation: newOperation,
-                        cleanInput: needToCleanInput,
-                        firstNumber: result,
-                        operationJustChosen: updatedOperationJustChosen
-                    }
-                });
-            } catch(err) {
-                dispatch(handleError(err));
-            }
-        }
+  return (dispatch, getState) => {
+    const state = getState();
+    const hasOperation = !!state.CalculatorReducer.operation;
+    const needToAcceptOperation = !state.CalculatorReducer.operationJustChosen;
+    if (!needToAcceptOperation) {
+      const newOperation = operation;
+      try {
+        dispatch({
+          type: CHANGE_OPERATION,
+          payload: {
+            operation: newOperation,
+          },
+        });
+      } catch (err) {
+        dispatch(handleError(err));
+      }
+    } else if (hasOperation) {
+      try {
+        dispatch(evaluateExpression(true, operation));
+      } catch (err) {
+        dispatch(handleError(err));
+      }
+    } else {
+      const result = state.CalculatorReducer.result.toString();
+      const hasDotNotation = (result.indexOf('.') > -1);
+      const firstNumberValid = (hasDotNotation && (result.length > 1)) || (!hasDotNotation && result);
+      const newOperation = firstNumberValid ? operation : '';
+      const updatedOperationJustChosen = !!newOperation;
+      const needToCleanInput = !!newOperation;
+      try {
+        dispatch({
+          type: CHANGE_OPERATION,
+          payload: {
+            operation: newOperation,
+            leanInput: needToCleanInput,
+            firstNumber: result,
+            operationJustChosen: updatedOperationJustChosen,
+          },
+        });
+      } catch (err) {
+        dispatch(handleError(err));
+      }
     }
+  },
 }
 
 export const clearInput = () => {
-    return dispatch => {
-        try {
-            dispatch({
-                type: CLEAR_INPUT,
-                payload: {
-                    result: '',
-                    firstNumber: '',
-                    operation: ''
-                }
-            });
-        } catch(err) {
-            dispatch(handleError(err));
-        }
+  return (dispatch) => {
+    try {
+      dispatch({
+        type: CLEAR_INPUT,
+        payload: {
+          result: '',
+          firstNumber: '',
+          operation: '',
+        },
+      });
+    } catch (err) {
+      dispatch(handleError(err));
     }
+  },
 }
 
 export const evaluateExpression = (intermediateOperationStatus, intermediateOperation) => {
-    return (dispatch, getState) => {
-        const state = getState();
+  return (dispatch, getState) => {
+    const state = getState();
         const operation = state.CalculatorReducer.operation;
         const operationJustChosen = state.CalculatorReducer.operationJustChosen;
         const secondNumberValid = !!operation ? state.CalculatorReducer.result : '';

@@ -15,7 +15,7 @@ class ResultField extends Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-   result: selectResult() 
+  result: selectResult(),
 });
 
 export default connect(mapStateToProps)(ResultField);

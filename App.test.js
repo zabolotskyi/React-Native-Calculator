@@ -14,14 +14,14 @@ const initialState = {
     cleanInput: false,
     firstNumber: '',
     operation: '',
-    result: ''
-  }
+    result: '',
+  },
 };
 
-const calculatorTester = async (initialState, action) => {
-  let store = mockStore(initialState);
+const calculatorTester = async (newInitialState, action) => {
+  const store = mockStore(newInitialState);
   await store.dispatch(action);
-  const nextState = mainReducer(initialState, store.getActions()[0]);
+  const nextState = mainReducer(newInitialState, store.getActions()[0]);
   return nextState;
 };
 
@@ -46,13 +46,25 @@ describe('Input test', () => {
 
   });
 
-  it('Press . and . -> expected .', async () => {
+  it('Press . and . -> expected 0.', async () => {
 
     let nextState = initialState;
     nextState = await calculatorTester(nextState, changeInput('.'));
     nextState = await calculatorTester(nextState, changeInput('.'));
 
-    expect(nextState.CalculatorReducer.result).toBe('.');
+    expect(nextState.CalculatorReducer.result).toBe('0.');
+
+  });
+
+  it('Leading zeros test. Press 0 0 1 4-> expected 14.', async () => {
+
+    let nextState = initialState;
+    nextState = await calculatorTester(nextState, changeInput('0'));
+    nextState = await calculatorTester(nextState, changeInput('0'));
+    nextState = await calculatorTester(nextState, changeInput('1'));
+    nextState = await calculatorTester(nextState, changeInput('4'));
+
+    expect(nextState.CalculatorReducer.result).toBe('14');
 
   });
 });
