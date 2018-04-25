@@ -6,10 +6,8 @@ import { createStructuredSelector } from 'reselect';
 import { selectResult } from '../../containers/Calculator/selectors';
 import styles from './style';
 
-// const { result } = this.props;
-
-const ResultField = ({ result }) => (
-  <TextInput style={styles.input} editable={false} underlineColorAndroid="transparent" value={`${result}`} />
+const ResultField = (props) => (
+  <TextInput style={styles.input} editable={false} underlineColorAndroid="transparent" value={`${props.result}`} />
 );
 
 const mapStateToProps = createStructuredSelector({

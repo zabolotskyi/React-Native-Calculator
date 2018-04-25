@@ -134,7 +134,7 @@ export const changeOperation = (operation) => (dispatch, getState) => {
         type: CHANGE_OPERATION,
         payload: {
           operation: newOperation,
-          leanInput: needToCleanInput,
+          cleanInput: needToCleanInput,
           firstNumber: result,
           operationJustChosen: updatedOperationJustChosen,
         },
