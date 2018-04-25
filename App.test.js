@@ -37,11 +37,27 @@ describe('Input test', () => {
     expect(nextState.CalculatorReducer.result).toBe('');
   });
 
+  it('Press . -> expected 0.', async () => {
+    let nextState = initialState;
+    nextState = await calculatorTester(nextState, changeInput('.'));
+    expect(nextState.CalculatorReducer.result).toBe('0.');
+  });
+
   it('Press . and . -> expected 0.', async () => {
     let nextState = initialState;
     nextState = await calculatorTester(nextState, changeInput('.'));
     nextState = await calculatorTester(nextState, changeInput('.'));
     expect(nextState.CalculatorReducer.result).toBe('0.');
+  });
+
+  it('Press . 2 + . 4 -> expected 0.4', async () => {
+    let nextState = initialState;
+    nextState = await calculatorTester(nextState, changeInput('.'));
+    nextState = await calculatorTester(nextState, changeInput('2'));
+    nextState = await calculatorTester(nextState, changeOperation('+'));
+    nextState = await calculatorTester(nextState, changeInput('.'));
+    nextState = await calculatorTester(nextState, changeInput('4'));
+    expect(nextState.CalculatorReducer.result).toBe('0.4');
   });
 
   it('Leading zeros test. Press 0 0 1 4-> expected 14.', async () => {
