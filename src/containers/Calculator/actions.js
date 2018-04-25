@@ -64,7 +64,7 @@ export const changeInput = (number) => (dispatch, getState) => {
   const state = getState();
   const needToCleanInput = state.CalculatorReducer.cleanInput;
   if (needToCleanInput) {
-    const newResult = number;
+    const newResult = (number === '.') ? '0.' : number;
     try {
       dispatch({
         type: CHANGE_INPUT,
