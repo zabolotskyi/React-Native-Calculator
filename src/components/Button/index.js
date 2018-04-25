@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import styles from './style';
 
-export default () => {
+const Button = () => {
   const { onPress, label } = this.props;
   return (
     <TouchableOpacity
@@ -13,3 +13,5 @@ export default () => {
     </TouchableOpacity>
   );
 };
+
+export default Button;
